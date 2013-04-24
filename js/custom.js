@@ -1,13 +1,20 @@
-var initialize = function (e) {
-	e.preventDefault();
+$(function() {
+/*
+ * Initialize tape with the two digits which were entered.
+ */
+ var initialize = function (e) {
+ 	e.preventDefault();
 
-	var firstVal = parseInt($('#txtFirstVal').val());
-	var secondVal = parseInt($('#txtSecondVal').val());
-	var tapeLength = firstVal + 1 + secondVal;
-	var offset = 15 - tapeLength;
-	var fieldCounter = 0;
+ 	if (!isValid())
+ 		return;
 
-	$('ul#tape li.active ~ li').remove();
+ 	var firstVal = parseInt($('#txtFirstVal').val());
+ 	var secondVal = parseInt($('#txtSecondVal').val());
+ 	var tapeLength = firstVal + 1 + secondVal;
+ 	var offset = 15 - tapeLength;
+ 	var fieldCounter = 0;
+
+ 	$('ul#tape li.active ~ li').remove();
 
 	// Create tape cells for the input values
 	var liTag = '';
@@ -26,6 +33,35 @@ var initialize = function (e) {
 
 };
 
-$(function() {
-	$('#btnInitialize').click(initialize);
+/*
+ * Checks if the input fields aren't empty.
+ */
+ var isValid = function () {
+ 	var isAllValid = true;
+
+ 	if ($('#txtFirstVal').val() == '') {
+ 		isAllValid = false;
+ 		$('#txtFirstVal').addClass('errorFocus');
+ 	}
+ 	if ($('#txtSecondVal').val() == '') {
+ 		isAllValid = false;
+ 		$('#txtSecondVal').addClass('errorFocus');
+ 	}
+
+ 	return isAllValid;
+ };
+
+/*
+ * Reset the error state of the given input field.
+ */
+ var resetErrorState = function () {
+ 	$(this).removeClass('errorFocus');
+ };
+
+
+// Initialzie event handlers
+ $('#txtFirstVal').change(resetErrorState);
+ $('#txtSecondVal').change(resetErrorState);
+ $('#btnInitialize').click(initialize);
+
 });

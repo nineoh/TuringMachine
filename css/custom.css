@@ -30,3 +30,11 @@ ul#tape li.active {
 ul#tape li.hidden {
 	display: none;
 }
+
+input {
+	width: 40px;
+}
+
+.errorFocus {
+	border: 2px solid #c00;
+}
