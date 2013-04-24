@@ -8,11 +8,12 @@ var UniversalTuringMachine = function () {
 	me.state = "0";
 	me.tape = [];
 	me.stepCount = 0;
+	me.stepInterval = 100;
+
 	me.successCallback = null;
 	me.errorCallback = null;
 	me.postStepCallback = null;
 	me.startCallback = null;
-	me.stepInterval = 100;
 
 	this.compare = function (a, b) {
 		return a.toLowerCase() === b.toLowerCase();
@@ -43,6 +44,7 @@ var UniversalTuringMachine = function () {
 			setTimeout(function () {
 
 				var ruleRan = false;
+				var direction = "";
 
 				for (var i = 0; i < programm.length; i++) {
 	                // Match actual me.state and actual value on me.tape
@@ -51,16 +53,21 @@ var UniversalTuringMachine = function () {
 
 	                	me.tape[me.headPosition] = programm[i][2];
 
-		                if (me.compare(programm[i][3], "R"))
-		                	me.moveRight();
-		                else if (me.compare(programm[i][3], "L"))
+		                if (me.compare(programm[i][3], "R")){
+		                	me.moveRight();	
+		                	direction = "R"	
+		                }
+		                else if (me.compare(programm[i][3], "L")){
 		                	me.moveLeft();
+		                	direction = "L";
+		                }
 
 		                me.state = programm[i][4];
 
 		                ruleRan = true;
 		                me.stepCount++;
-		                if (me.postStepCallback) me.postStepCallback(me);
+
+		                if (me.postStepCallback) me.postStepCallback(me, direction);
 		                break;
 	            	}
 	        	}
@@ -187,6 +194,29 @@ var addition = '[["0", "0", "_", "R", "1"],["0", "1", "_", "R", "2"],["1", "0", 
  };
 
 /*
+ * Animate fancyTape
+ */
+ var animateStep = function (direction) {
+ 	if (direction.toLowerCase() == 'r') {
+ 		var readWriteHead = $('#fancyTape li.active');
+ 		$('#fancyTape li').first().remove();
+ 		$('#fancyTape').append('<li style="color:#f0f;">&nbsp</li>');
+
+ 		readWriteHead.removeClass('active');
+ 		readWriteHead.next().addClass('active');
+ 	}
+ 	else {
+ 		var readWriteHead = $('#fancyTape li.active');
+ 		$('#fancyTape li').last().remove();
+ 		$('#fancyTape').prepend('<li style="color:#f0f;">&nbsp</li>');
+
+ 		readWriteHead.removeClass('active');
+ 		readWriteHead.prev().addClass('active');
+
+ 	}
+ };
+
+/*
  * Reset the error state of the given input field.
  */
  var resetErrorState = function () {
@@ -260,10 +290,12 @@ $(function () {
 			$('SPAN#status').text('error!');
 		};
 
-		turing.postStepCallback = function (me) {
+		turing.postStepCallback = function (me, direction) {
 			tools.logTape();
 			$('SPAN#stepCount').text(me.stepCount);
 			$('#tape').text(me.tape.join(''));
+			animateStep(direction);
+			// alert(direction);
 		};
 
         // Run
