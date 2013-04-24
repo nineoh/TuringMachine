@@ -8,43 +8,65 @@
 	<script type="text/javascript" src="js/custom.js"></script>
 </head>
 <body>
-	<h1>Turing Machine</h1>
-	<form>
-		<input type="text" id="txtFirstVal" /> + <input type="text" id="txtSecondVal" />
-		<button id="btnInitialize">Initialize</button>
-	</form>
-	<ul id="tape">
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li class="active">&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-		<li>&nbsp;</li>
-	</ul>	
+	<div id="mainContainer" class="span10">
+		<div id="header" class="span10">
+			<header>
+				<h1>Turing Machine</h1>
+			</header>
+		</div><!-- #header -->
+		<div id="content" class="span10">
+			<form id="calculationForm">
+				<div id="init" class="span3">
+					<input type="text" id="txtFirstVal" placeholder="int" /> + 
+					<input type="text" id="txtSecondVal" placeholder="int" />
+					<button id="btnInitialize">Initialize</button>
+				</div><!-- #init -->
+				<div id="tapeContainer" class="span10">
+				<ul id="tape">
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li class="active">&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+					<li>&nbsp;</li>
+				</ul>
+			</div><!-- #tapeContainer -->
+				<div id="buttonSection" class="span4 offset3">
+					<button id="btnRun">Run</button>
+					<button id="btnStep">Step</button>
+				</div><!-- #buttonSection -->
+			</form>
+		</div><!-- #content -->
+		<div id="footer" class="span10">
+			<footer>
+				<p>&copy; 2013 by Jann Wild &amp; Nino Lanfranchi</p>
+			</footer>
+		</div><!-- #footer -->
+	</div><!-- #mainContainer -->
 </body>
 </html>

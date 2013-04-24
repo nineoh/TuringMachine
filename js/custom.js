@@ -2,7 +2,7 @@ $(function() {
 /*
  * Initialize tape with the two digits which were entered.
  */
- var initialize = function (e) {
+ var initializeUi = function (e) {
  	e.preventDefault();
 
  	if (!isValid())
@@ -58,10 +58,29 @@ $(function() {
  	$(this).removeClass('errorFocus');
  };
 
+/*
+ * Starts the simulator
+ */
+ var runMachine = function (e) {
+ 	e.preventDefault();
+ 	alert('run clicked!');
+ };
+
+/*
+ * Performs one step on the tape
+ */
+ var doStep = function (e) {
+ 	e.preventDefault();
+ 	alert('step clicked');
+ }
+
 
 // Initialzie event handlers
  $('#txtFirstVal').change(resetErrorState);
  $('#txtSecondVal').change(resetErrorState);
- $('#btnInitialize').click(initialize);
+ $('#btnInitialize').click(initializeUi);
+
+ $('#btnRun').click(runMachine);
+ $('#btnStep').click(doStep);
 
 });
