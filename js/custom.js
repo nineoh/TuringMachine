@@ -1,4 +1,4 @@
-var showInput = function (e) {
+var initialize = function (e) {
 	e.preventDefault();
 
 	var firstVal = parseInt($('#txtFirstVal').val());
@@ -7,9 +7,9 @@ var showInput = function (e) {
 	var offset = 15 - tapeLength;
 	var fieldCounter = 0;
 
-	// $('ul#tape li.active ~ li').html('&bull;');
 	$('ul#tape li.active ~ li').remove();
 
+	// Create tape cells for the input values
 	var liTag = '';
 	for (var i = 0; i < tapeLength; i++) {
 		liTag = i < 15 ? '<li>' : '<li class="hidden">';
@@ -19,30 +19,13 @@ var showInput = function (e) {
 		else
 			$('ul#tape').append(liTag + '&bull;</li>');
 	}
-
+	// fill up the rest of the tape with empty cells
 	for (var i = 0; i < offset; i++) {
 		$('ul#tape').append('<li>&nbsp;</li>');
 	}
 
-	// for (var i = 0; i < firstVal; i++) {
-	// 	$('ul#tape').append('<li>&bull;</li>');
-	// 	fieldCounter++;
-	// }
-
-	// $('ul#tape').append('<li>&nbsp;</li>');
-	// fieldCounter++;
-		
-	// for (var i = 0; i < secondVal; i++) {
-	// 	$('ul#tape').append('<li>&bull;</li>');
-	// 	fieldCounter++;
-	// }
-
-	// for (var i = 0; i < offset; i++) {
-	// 	$('ul#tape').append('<li>&nbsp;</li>');
-	// 	fieldCounter++;
-	// }
 };
 
 $(function() {
-	$('#btnCalculate').click(showInput);
+	$('#btnInitialize').click(initialize);
 });
