@@ -141,22 +141,31 @@ var addition = '[["0", "0", "_", "R", "1"],["0", "1", "_", "R", "2"],["1", "0", 
  	var fieldCounter = 0;
 
  	$('ul#fancyTape li.active ~ li').remove();
+ 	$('#tape').val('');
 
 	// Create tape cells for the input values
 	var liTag = '';
 	for (var i = 0; i < tapeLength; i++) {
 		liTag = i < 15 ? '<li>' : '<li class="hidden">';
 
-		if (i == (firstVal))
+		if (i == (firstVal)) {
 			$('ul#fancyTape').append(liTag + '&nbsp;</li>');
-		else
+			$('#tape').val($('#tape').val() + 1);
+		}
+		else {
 			$('ul#fancyTape').append(liTag + '&bull;</li>');
+			$('#tape').val($('#tape').val() + 0);
+		}
 	}
 	// fill up the rest of the tape with empty cells
 	for (var i = 0; i < offset; i++) {
 		$('ul#fancyTape').append('<li>&nbsp;</li>');
 	}
 
+	$('#tape').val($('#tape').val() + 1);
+
+	// Load addition program
+	$('#programm').text(addition);
 };
 
 /*
@@ -206,7 +215,7 @@ $(function () {
 	 * Nino's section
 	 */
 
-	 // Initialzie event handlers
+	 // Initialize event handlers
 	$('#txtFirstVal').change(resetErrorState);
 	$('#txtSecondVal').change(resetErrorState);
 	$('#btnInitialize').click(initializeUi);
@@ -220,10 +229,6 @@ $(function () {
 	$('#reset').click(function () {
 		Tools.init();
 	}).click();
-
-	$('#loadadd').click(function () {
-		$('#programm').text(addition);
-	});
 
 	$('#stepInterval').change(function (e) {
 		$(document).trigger('speedchange', parseInt($(this).val()));
