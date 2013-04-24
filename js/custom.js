@@ -199,16 +199,22 @@ var addition = '[["0", "0", "_", "R", "1"],["0", "1", "_", "R", "2"],["1", "0", 
  var animateStep = function (direction) {
  	if (direction.toLowerCase() == 'r') {
  		var readWriteHead = $('#fancyTape li.active');
- 		$('#fancyTape li').first().remove();
- 		$('#fancyTape').append('<li style="color:#f0f;">&nbsp</li>');
+ 		$('#fancyTape li').not(':hidden').first().addClass('hidden');
+ 		if ($('#fancyTape li').not(':hidden').last().next().is('li'))
+ 			$('#fancyTape li').not(':hidden').last().next().removeClass('hidden');
+ 		else
+ 			$('#fancyTape').append('<li style="color:#f0f;">&nbsp</li>');
 
  		readWriteHead.removeClass('active');
  		readWriteHead.next().addClass('active');
  	}
  	else {
  		var readWriteHead = $('#fancyTape li.active');
- 		$('#fancyTape li').last().remove();
- 		$('#fancyTape').prepend('<li style="color:#f0f;">&nbsp</li>');
+ 		$('#fancyTape li').not(':hidden').last().addClass('hidden');
+ 		if ($('#fancyTape li').not(':hidden').first().prev().is('li'))
+ 			$('#fancyTape li').not(':hidden').first().prev().removeClass('hidden');
+ 		else
+ 			$('#fancyTape').append('<li style="color:#f0f;">&nbsp</li>');
 
  		readWriteHead.removeClass('active');
  		readWriteHead.prev().addClass('active');
