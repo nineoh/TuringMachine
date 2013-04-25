@@ -88,7 +88,7 @@ var UniversalTuringMachine = function () {
 		        		if (me.errorCallback) me.errorCallback();
 		        	}
 		        }
-		    }, me.stepInterval)
+		    }, 0)
 		})();
 	}
 }
