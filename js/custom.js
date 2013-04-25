@@ -128,8 +128,9 @@ Tools.init = function () {
 	$('#outputField').empty();
 	$('SPAN#status').text('idle');
 	$('SPAN#stepCount').text('0');
-	$('#tape').text('');
+	$('#tape').val('');
 	$('#programm').text('');
+	resetFancyTape();
 }
 
 
@@ -140,38 +141,31 @@ Tools.init = function () {
 /*
  * Initialize tape with the two digits which were entered.
  */
- var initializeUi = function (e) {
- 	e.preventDefault();
-
- 	if (!isValid())
- 		return;
-
- 	var firstVal = parseInt($('#txtFirstVal').val());
- 	var secondVal = parseInt($('#txtSecondVal').val());
+ var initializeUi = function () {
+ 	var inputValues = $('#tape').val().split(1);
+ 	var firstVal = inputValues[0].length;
+ 	var secondVal = inputValues[1].length;
  	var tapeLength = firstVal + 1 + secondVal;
  	var offset = 15 - tapeLength;
  	var fieldCounter = 0;
 
  	$('ul#fancyTape li.active ~ li, ul#fancyTape li.active').remove();
- 	$('#tape').val('');
 
 	// Create tape cells for the input values
+
 	var liTag = '';
 	for (var i = 0; i < tapeLength; i++) {
 		liTag = i < 16 ? '<li>' : '<li class="hidden">';
 
 		if (i == 0) {
 			$('ul#fancyTape').append('<li class="active">0</li>');
-			$('#tape').val($('#tape').val() + '0');
 		}
 
 		else if (i == firstVal) {
 			$('ul#fancyTape').append(liTag + '1</li>');
-			$('#tape').val($('#tape').val() + '1');
 		}
 		else {
 			$('ul#fancyTape').append(liTag + '0</li>');
-			$('#tape').val($('#tape').val() + '0');
 		}
 	}
 
@@ -187,7 +181,6 @@ Tools.init = function () {
 		$('ul#fancyTape').append('<li class="hidden">1</li>');
 	}
 
-	$('#tape').val($('#tape').val() + '1');
 
 	// Load program
 	// $('#programm').text(addition);
@@ -250,20 +243,15 @@ Tools.init = function () {
  	$(this).removeClass('errorFocus');
  };
 
-/*
- * Starts the simulator
- */
- var runMachine = function (e) {
- 	e.preventDefault();
- 	alert('run clicked!');
- };
+ var resetFancyTape = function () {
+ 	$('ul#fancyTape li').remove();
+	for (var i = 0; i < 31; i++) {
+		if (i == 15)
+			$('ul#fancyTape').append('<li class="active">' + BLANK + '</li>');
+		else
+			$('ul#fancyTape').append('<li>' + BLANK + '</li>');
+	}
 
-/*
- * Performs one step on the tape
- */
- var doStep = function (e) {
- 	e.preventDefault();
- 	alert('step clicked');
  }
 
 
@@ -273,19 +261,40 @@ $(function () {
 	 */
 
 	 // Load Page
-	for (var i = 0; i < 31; i++) {
-		if (i == 15)
-			$('ul#fancyTape').append('<li class="active">' + BLANK + '</li>');
-		else
-			$('ul#fancyTape').append('<li>' + BLANK + '</li>');
-	}
+	 // resetFancyTape();
 
 	 // Initialize event handlers
 	$('#txtFirstVal').change(resetErrorState);
 	$('#txtSecondVal').change(resetErrorState);
-	$('#btnInitialize').click(initializeUi);
-	$('#btnRun').click(runMachine);
-	$('#btnStep').click(doStep);
+	$('#btnInitialize').click(function (e) {
+	 	e.preventDefault();
+
+	 	if (!isValid())
+	 		return;
+
+	 	// Reset all inputs
+	 	$('#outputField').empty();
+		$('SPAN#status').text('idle');
+		$('SPAN#stepCount').text('0');
+		$('#tape').val('');
+		$('#programm').text('');
+		resetFancyTape();
+		
+	 	var firstVal = parseInt($('#txtFirstVal').val());
+		var secondVal = parseInt($('#txtSecondVal').val());
+		var tapeString = '';
+		for (var i = 0; i < firstVal; i++) {
+			tapeString += '0';
+		}
+		tapeString += '1';
+		for (var i = 0; i < secondVal; i++) {
+			tapeString += '0';
+		}
+		tapeString += '1';
+		$('#tape').val(tapeString);
+
+		initializeUi();
+	});
 
 
 	/*
@@ -293,6 +302,8 @@ $(function () {
 	 */
 	$('#reset').click(function () {
 		Tools.init();
+		$('#txtFirstVal').val('');
+		$('#txtSecondVal').val('');
 	}).click();
 
 	$('#stepInterval').change(function (e) {
@@ -300,6 +311,9 @@ $(function () {
 	}).change();
 
 	$('#start').click(function () {
+		if (!isValid())
+			return;
+
 		var turing = new UniversalTuringMachine();
 		var tools = new Tools(turing);
 
