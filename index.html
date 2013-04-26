@@ -17,9 +17,21 @@
 		</div><!-- #header -->
 		<div id="content" class="span10">
 			<form id="calculationForm">
+				<div id="programChooser">
+					Choose operation:<br>
+					<input type="radio" id="programRadioAdd" name="programRadio" value="addition" checked="checked">
+						<label for="programRadioAdd">+ (addition)</label>
+					</input><br>
+					<input type="radio" id="programRadioMult" name="programRadio" value="multiplication">
+						<label for="programRadioMult">* (multiplication)</label>
+					</input><br>
+					<input type="radio" id="programRadioFac" name="programRadio" value="faculty">
+						<label for="programRadioFac">! (faculty)</label>
+					</input>
+				</div><!-- #programChooser -->
 				<div id="init" class="span3">
-					<input type="text" id="txtFirstVal" placeholder="int" /> + 
-					<input type="text" id="txtSecondVal" placeholder="int" />
+					<input type="text" id="txtFirstVal" placeholder="int 1" />  
+					<input type="text" id="txtSecondVal" placeholder="int 2" />
 					<button id="btnInitialize">Initialize</button>
 				</div><!-- #init -->
 				<div id="tapeContainer" class="span10">

@@ -3,7 +3,7 @@ var BLANK = "_";
 // Define turing machine programs
 var addition = '[["0", "0", "' + BLANK + '", "R", "1"],["0", "1", "' + BLANK + '", "R", "2"],["1", "0", "0", "R", "1"],["1", "1", "0", "R", "2"],["2", "0", "0", "R", "2"],["2", "1", "' + BLANK + '", "R", "END"]]';
 var multiplication = '[["0", "0", "' + BLANK + '", "R", "1"],["1", "0", "0", "R", "1"],["1", "1", "' + BLANK + '", "R", "2"],["1", "' + BLANK + '", "' + BLANK + '", "R", "2"],["2", "0", "' + BLANK + '", "R", "3"],["3", "0", "0", "R", "3"],["3", "1", "' + BLANK + '", "R", "4"],["3", "' + BLANK + '", "' + BLANK + '", "R", "4"],["4", "0", "0", "R", "4"],["4", "' + BLANK + '", "0", "L", "5"],["5", "0", "0", "L", "5"],["5", "' + BLANK + '", "' + BLANK + '", "L", "6"],["6", "0", "0", "L", "6"],["6", "' + BLANK + '", "0", "R", "2"],["2", "' + BLANK + '", "' + BLANK + '", "L", "7"],["7", "0", "0", "L", "7"],["7", "' + BLANK + '", "' + BLANK + '", "L", "8"],["8", "0", "0", "L", "8"],["8", "' + BLANK + '", "0", "R", "0"],["0", "' + BLANK + '", "' + BLANK + '", "L", "END"]]';
-
+var faculty = '';
 
 /*
  * Jann's section
@@ -183,8 +183,15 @@ Tools.init = function () {
 
 
 	// Load program
-	// $('#programm').text(addition);
-	$('#programm').text(multiplication);
+	var activeProgram = $('input[name="programRadio"]:checked').val();
+	if (activeProgram == 'addition')
+		$('#programm').text(addition);
+	else if (activeProgram == 'multiplication')
+		$('#programm').text(multiplication);
+	// else if (activeProgram == 'faculty')
+	// 	$('#programm').text(faculty);
+	else
+		alert(activeProgram + ' is not implemented yet!');
 };
 
 /*
@@ -260,9 +267,6 @@ $(function () {
 	 * Nino's section
 	 */
 
-	 // Load Page
-	 // resetFancyTape();
-
 	 // Initialize event handlers
 	$('#txtFirstVal').change(resetErrorState);
 	$('#txtSecondVal').change(resetErrorState);
@@ -294,7 +298,6 @@ $(function () {
 		$('#tape').val(tapeString);
 
 		initializeUi();
-		$('#lblSpeed').text($('#stepInterval').val());
 	});
 
 
@@ -350,4 +353,7 @@ $(function () {
         // Run
         turing.go(tape, simulator);
     });
+
+    // programToLoad = $('input[@name="programRadio"]:checked').val();
+	$('#lblSpeed').text($('#stepInterval').val());
 });
