@@ -294,6 +294,7 @@ $(function () {
 		$('#tape').val(tapeString);
 
 		initializeUi();
+		$('#lblSpeed').text($('#stepInterval').val());
 	});
 
 
@@ -323,7 +324,7 @@ $(function () {
 		$(document).off('speedchange');
 		$(document).on('speedchange', function (e, speed) {
 			turing.stepInterval = speed;
-			alert(speed);
+			$('#lblSpeed').text(speed);
 		});
 
 		turing.startCallback = function () {
@@ -342,9 +343,8 @@ $(function () {
 		turing.postStepCallback = function (me, direction, toWrite) {
 			tools.logTape();
 			$('SPAN#stepCount').text(me.stepCount);
-			$('#tape').text(me.tape.join(''));
+			$('#tape').val(me.tape.join(''));
 			animateStep(direction, toWrite);
-			// alert(direction);
 		};
 
         // Run
