@@ -30,20 +30,21 @@
 					<input id="start" type="button" value="start" />
 					<input id="reset" type="button" value="reset" />
 				</div><!-- #buttonSection -->
+				<div id="machine" class="10">
+					<div id="programSection" class="span3">
+						<textarea id="tape" class="tape"></textarea>
+						<textarea id="programm" class="textarea"></textarea>
+					</div><!-- #programSection -->
+					<div id="consoleSection" class="span6 offset1">
+						<div>
+							<input id="stepInterval" type="range" min="1" max="1000" value="100" />
+						</div>
+						<div class="consoleText"><span>Steps: </span><span id="stepCount"></span></div>
+						<div class="consoleText bold"><span>Status: </span><span id="status"></span></div>
+						<div id="outputField" class="console"></div>
+					</div><!-- #consoleSection -->	
+				</div><!-- #machine -->
 			</form>
-
-
-			<textarea id="tape" class="tape"></textarea>
-			<textarea id="programm" class="textarea"></textarea>
-			<div>
-				<input id="stepInterval" type="range" min="1" max="1000" value="100" />
-			</div>
-			<div class="consoleText"><span>Steps: </span><span id="stepCount"></span></div>
-			<div class="consoleText bold"><span>Status: </span><span id="status"></span></div>
-			<div id="outputField" class="console"></div>
-
-
-
 		</div><!-- #content -->
 		<div id="footer" class="span10">
 			<footer>

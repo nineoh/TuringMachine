@@ -169,6 +169,11 @@
  	text-align: center;
  }
 
+ div#content div#programSection,
+ div#content div#consoleSection {
+ 	float: left;
+ }
+
  div#footer {
  	position: fixed;
  	bottom: 0;
@@ -207,8 +212,8 @@
  }
 
  .console {
- 	width: 600px;
- 	min-height: 300px;
+ 	width: 580px;
+ 	height: 300px;
  	overflow: auto;
  	background-color: black;
  	color: white;
