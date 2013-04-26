@@ -204,7 +204,7 @@ Tools.init = function () {
  		isAllValid = false;
  		$('#txtFirstVal').addClass('errorFocus');
  	}
- 	if ($('#txtSecondVal').val() == '') {
+ 	if (($('input[name="programRadio"]:checked').val() != 'faculty') && $('#txtSecondVal').val() == '') {
  		isAllValid = false;
  		$('#txtSecondVal').addClass('errorFocus');
  	}
@@ -259,7 +259,28 @@ Tools.init = function () {
 			$('ul#fancyTape').append('<li>' + BLANK + '</li>');
 	}
 
- }
+ };
+
+ var getOperator = function (operation) {
+ 	if (operation == 'addition')
+ 		return '+';
+ 	else if (operation == 'multiplication')
+ 		return '*';
+ 	else if (operation == 'faculty')
+ 		return '!';
+ 	else
+ 		return '';
+ };
+
+ var setInputFields = function () {
+ 	var operation = $(this).val();
+ 	$('#lblOperator').text(getOperator(operation));
+
+ 	if (operation == 'faculty')
+ 		$('#txtSecondVal').addClass('hidden');
+ 	else
+ 		$('#txtSecondVal').removeClass('hidden');
+ };
 
 
 $(function () {
@@ -267,7 +288,9 @@ $(function () {
 	 * Nino's section
 	 */
 
-	 // Initialize event handlers
+	// Initialize event handlers
+	$('input[name="programRadio"]').change(setInputFields);
+
 	$('#txtFirstVal').change(resetErrorState);
 	$('#txtSecondVal').change(resetErrorState);
 	$('#btnInitialize').click(function (e) {
@@ -355,5 +378,6 @@ $(function () {
     });
 
     // programToLoad = $('input[@name="programRadio"]:checked').val();
+    $('#lblOperator').text(getOperator($('input[name="programRadio"]:checked').val()));
 	$('#lblSpeed').text($('#stepInterval').val());
 });

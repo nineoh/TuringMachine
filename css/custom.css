@@ -126,7 +126,8 @@
  	font-size: 24px;
  }
 
- ul#fancyTape li.hidden {
+ ul#fancyTape li.hidden,
+ .hidden {
  	display: none;
  }
 
@@ -146,6 +147,7 @@
  	margin: 0;
  	padding: 10px 0;
  	text-align: center;
+ 	font-variant: small-caps;
  }
 
  div#content {
@@ -180,6 +182,7 @@
  	text-align: center;
  	font-size: 16px;
  	background-color: #ccc;
+ 	opacity: 0.8;
  }
 
  #calculationForm {
@@ -213,7 +216,7 @@
 
  .console {
  	width: 580px;
- 	height: 300px;
+ 	height: 270px;
  	overflow: auto;
  	background-color: black;
  	color: white;
