@@ -148,6 +148,9 @@
  	padding: 10px 0;
  	text-align: center;
  	font-variant: small-caps;
+ 	box-shadow: 0 0 20px #ccc;
+ 	border-bottom-right-radius: 20px;
+ 	border-bottom-left-radius: 20px;
  }
 
  div#content {
@@ -174,6 +177,17 @@
  div#content div#programSection,
  div#content div#consoleSection {
  	float: left;
+ }
+
+ div#content div#machine {
+ 	height: 400px;
+ }
+
+ div#content div#diagram {
+ 	background-color: #bbb;
+ 	height: 600px;
+ 	margin-bottom: 40px;
+ 	box-shadow: 0 0 20px #bbb;
  }
 
  div#footer {
@@ -224,4 +238,7 @@
  	font-family: 'Courier New';
  	padding: 10px;
  	margin-bottom: 40px;
+ 	box-shadow: 0 0 20px #000;
+ 	margin-left: -20px;
+ 	margin-top: 10px;
  }

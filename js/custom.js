@@ -150,7 +150,7 @@ Tools.init = function () {
  */
 
 /*
- * Initialize tape with the two digits which were entered.
+ * Initialize the fancy tape with the digits which were entered.
  */
  var initializeUi = function () {
 	var operation = $('input[name="programRadio"]:checked').val();
