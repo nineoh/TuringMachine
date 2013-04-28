@@ -315,6 +315,14 @@ $(function () {
 		$('#tape').val(tapeString);
 
 		initializeUi();
+
+		// debugger;
+		// var diagram = new Diagram();
+		// diagram.program = eval($('#programm').text());
+
+		// jsPlumb.ready(function () {
+		// 	diagram.draw($('#container'));
+		// });
 	});
 
 	$('#btnStep').click(function (e) {

@@ -242,3 +242,46 @@
  	margin-left: -20px;
  	margin-top: 10px;
  }
+
+#container {
+    width: 900px;
+    height: 900px;
+    position: relative;
+    background-color: lightgray;
+}
+
+.state {
+    width: 30px;
+    height: 30px;
+    background-color: green;
+    position: absolute;
+    border-radius: 50%;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.endState {
+    background-color: red;
+}
+
+.beginState {
+    background-color: blue;
+}
+
+.label {
+    font-size: 10px;
+    font-family: 'Courier New';
+    width: 30px;
+    height: 20px;
+}
+
+.highlighted path {
+    stroke: yellow;
+    stroke-width: 4px;
+}
+
+.highlightedState {
+    background-color: yellow;
+}

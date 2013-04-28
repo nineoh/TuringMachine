@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://jsplumb.googlecode.com/files/jquery.jsPlumb-1.3.16-all-min.js"></script>
+
+    <style>
+        #container {
+            width: 900px;
+            height: 900px;
+            position: relative;
+            background-color: lightgray;
+        }
+
+        .state {
+            width: 30px;
+            height: 30px;
+            background-color: green;
+            position: absolute;
+            border-radius: 50%;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .endState {
+            background-color: red;
+        }
+
+        .beginState {
+            background-color: blue;
+        }
+
+        .label {
+            font-size: 10px;
+            font-family: 'Courier New';
+            width: 30px;
+            height: 20px;
+        }
+
+        .highlighted path {
+            stroke: yellow;
+            stroke-width: 4px;
+        }
+
+        .highlightedState {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+    </div>
+
+    <script type="text/javascript">
+
+        var program = [
+['0', '_', '_', 'R', '1'],
+['1', '1', '1', 'R', '2'],
+['2', '_', '_', 'L', '12'],
+['2', '1', '_', 'R', '3'],
+['3', '1', '1', 'R', '3'],
+['3', '_', '_', 'R', '4'],
+['4', '_', '1', 'L', '5'],
+['5', '_', '_', 'L', '6'],
+['5', '1', '1', 'L', '5'],
+['6', '_', '1', 'R', '7'],
+['6', '1', '1', 'L', '6'],
+['7', '_', '_', 'R', '1'],
+['7', '1', '_', 'R', '8'],
+['8', '_', '_', 'R', '9'],
+['8', '1', '1', 'R', '8'],
+['9', '_', '1', 'L', '5'],
+['9', '1', '1', 'R', '9'],
+['12', '1', '_', 'L', '13'],
+['13', '1', '1', 'L', '13'],
+['13', '_', '_', 'L', '14'],
+['14', '_', '_', 'R', '15'],
+['14', '1', '1', 'L', '13'],
+['15', '_', '_', 'R', '31'],
+['15', '1', '1', 'N', '31'],
+['31', '1', '_', 'R', '16'],
+['16', '_', '_', 'R', '17'],
+['16', '1', '1', 'R', '16'],
+['17', '_', '_', 'L', '98'],
+['17', '1', '_', 'R', '18'],
+['18', '_', '_', 'R', '19'],
+['18', '1', '1', 'R', '18'],
+['19', '_', '_', 'N', '20'],
+['19', '1', '1', 'R', '18'],
+['20', '_', '1', 'L', '21'],
+['21', '_', '_', 'L', '44'],
+['21', '1', '1', 'L', '21'],
+['44', '_', '_', 'L', '22'],
+['44', '1', '1', 'L', '21'],
+['22', '_', '_', 'R', '23'],
+['22', '1', '1', 'L', '21'],
+['23', '_', '_', 'R', '45'],
+['45', '_', '_', 'R', '24'],
+['24', '_', '_', 'R', '25'],
+['24', '1', '1', 'R', '24'],
+['25', '_', '1', 'R', '40'],
+['25', '1', '1', 'R', '25'],
+['40', '_', '_', 'N', '50'],
+['40', '1', '_', 'R', '41'],
+['41', '_', '_', 'R', '42'],
+['41', '1', '1', 'R', '41'],
+['42', '_', '_', 'L', '43'],
+['42', '1', '1', 'R', '41'],
+['43', '_', '1', 'L', '21'],
+['50', '_', '_', 'L', '52'],
+['51', '1', '1', 'L', '51'],
+['51', '_', '_', 'L', '52'],
+['52', '_', '_', 'R', '53'],
+['52', '1', '1', 'L', '51'],
+['53', '_', '_', 'R', '62'],
+['62', '1', '1', 'R', '63'],
+['63', '_', '_', 'L', '64'],
+['63', '1', '1', 'L', '54'],
+['64', '1', '_', 'R', '65'],
+['65', '_', '_', 'R', '66'],
+['66', '1', '1', 'R', '90'],
+['90', '_', '_', 'L', '91'],
+['90', '1', '1', 'L', '67'],
+['67', '1', '_', 'R', '68'],
+['68', '_', '_', 'R', '69'],
+['68', '1', '1', 'R', '68'],
+['69', '_', '_', 'L', '70'],
+['69', '1', '1', 'R', '68'],
+['70', '_', '1', 'L', '71'],
+['71', '_', '_', 'L', '72'],
+['71', '1', '1', 'L', '71'],
+['72', '_', '_', 'R', '73'],
+['72', '1', '1', 'L', '71'],
+['73', '_', '_', 'R', '66'],
+['91', '1', '_', 'R', '92'],
+['92', '_', '_', 'R', '93'],
+['92', '1', '1', 'R', '92'],
+['93', '_', '_', 'L', '94'],
+['93', '1', '1', 'R', '92'],
+['94', '_', '1', 'L', '95'],
+['95', '_', '_', 'L', '96'],
+['95', '1', '1', 'L', '95'],
+['96', '_', '_', 'R', '97'],
+['96', '1', '1', 'L', '95'],
+['97', '_', '_', 'R', '15'],
+['98', '_', '1', 'R', 'END'],
+['54', '1', '_', 'R', '55'],
+['55', '_', '_', 'R', '56'],
+['55', '1', '1', 'R', '55'],
+['56', '1', '_', 'R', '57'],
+['57', '_', '_', 'R', '58'],
+['57', '1', '1', 'R', '57'],
+['58', '_', '_', 'L', '59'],
+['58', '1', '1', 'R', '57'],
+['59', '_', '1', 'L', '21']];
+
+    </script>
+
+    <script type="text/javascript">
+
+        var Diagram = function () {
+            var me = this;
+            me.program = [];
+            me.stateItemSize = 30;
+
+            this.draw = function (jqContainer) {
+                // ['0', '_', '_', 'R', '1'],
+                var states = [];
+
+                // init
+                jsPlumb.setRenderMode(jsPlumb.SVG);
+
+
+                programLoop:
+                    for (var i = 0; i < me.program.length; i++) {
+                        var transition = me.program[i];
+                        var state = transition[0];
+
+                        //Check if state already exists
+                        for (var j = 0; j < states.length; j++) {
+                            var item = states[j];
+                            if (item && item.id == state) {
+                                continue programLoop;
+                            }
+                        }
+
+                        while (true) {
+                            var randX = Math.abs(Math.floor(Math.random() * (jqContainer.height() + 1) - me.stateItemSize));
+                            var randY = Math.abs(Math.floor(Math.random() * (jqContainer.width() + 1) - me.stateItemSize));
+
+                            if (!me.validatePosition(randX, randY, 70, states)) {
+                                continue;
+                            }
+
+                            states.push({
+                                id: state,
+                                x: randX,
+                                y: randY
+                            });
+
+                            break;
+                        }
+                    }
+
+                // Draw states 
+                for (var i = 0; i < states.length; i++) {
+                    var data = states[i];
+                    var id = 's' + data.id;
+
+                    var state = '<div id="' + id + '" class="state" style="left: ' + data.x + 'px; top: ' + data.y + 'px;">Q' + data.id + '</div>';
+                    $('#container').append(state);
+                }
+
+                // Create connections
+                for (var k = 0; k < me.program.length; k++) {
+                    var a = me.program[k];
+
+                    // Handle END state
+                    if (a[4] == "END") {
+                        $('#s' + a[0]).addClass('endState');
+                        continue;
+                    }
+
+                    jsPlumb.connect({
+                        source: 's' + a[0],
+                        target: 's' + a[4],
+                        anchor: "Continuous",
+                        connector: ["StateMachine", { curviness: 20, margin: 5, cssClass: 'rule-' + a[0] + a[1] + a[2] + a[3] + a[4] }],
+                        paintStyle: { strokeStyle: "black", lineWidth: 1 },
+                        endpoint: ["Blank"],
+                        overlays: [
+                            ["Label", { label: a[1] + ' ' + a[2] + ' ' + a[3], location: 0.5, cssClass: "label" }],
+                            ["Arrow", { location: 1, width: 10, length: 10 }]
+                        ]
+                    });
+                }
+
+                // Some tasks
+                jsPlumb.draggable($(".state"), {
+                    containment: "container"
+                });
+
+                $('#s0').addClass('beginState');
+            }
+
+            this.validatePosition = function (x, y, minDistance, positions) {
+                var isValid = true;
+
+                for (var i = 0; i < positions.length; i++) {
+                    var position = positions[i];
+                    var distance = me.getDistance(x, y, position.x, position.y);
+
+                    if (distance < minDistance) {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                return isValid;
+            }
+
+            this.getDistance = function (x1, y1, x2, y2) {
+                return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            }
+
+            this.highlight = function (t) {
+                $('.highlightedState').removeClass('highlightedState');
+                $('#s' + t[0]).addClass('highlightedState');
+
+                $('.highlighted').removeClass('highlighted');
+                $('.rule-' + t[0] + t[1] + t[2] + t[3] + t[4]).addClass('highlighted');
+            }
+        }
+
+    </script>
+
+
+    <script type="text/javascript">
+        var diagram = new Diagram();
+        diagram.program = program;
+
+        jsPlumb.ready(function () {
+            diagram.draw($('#container'));
+        });
+
+        //diagram.highlight(['17', '1', '_', 'R', '18']);
+    </script>
+
+</body>
+</html>
