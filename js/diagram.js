@@ -113,6 +113,8 @@ var Diagram = function () {
             $('.highlighted').get(0).setAttribute("class", classes.replace('highlighted', ''));
         }
         var classes2 = $('.rule-' + t[0] + t[1] + t[2] + t[3] + t[4]).attr('class');
-        $('.rule-' + t[0] + t[1] + t[2] + t[3] + t[4]).get(0).setAttribute("class", classes2 + ' highlighted')
+        try {
+            $('.rule-' + t[0] + t[1] + t[2] + t[3] + t[4]).get(0).setAttribute("class", classes2 + ' highlighted')
+        } catch(e){}
     }
 }

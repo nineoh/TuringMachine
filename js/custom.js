@@ -97,7 +97,7 @@ var UniversalTuringMachine = function () {
 				    if (cont === true) {
 				        loop();
 				    }
-		        } else {
+				} else {
 		        	if (me.compare(me.state, "END")) {
 		        		if (me.successCallback) me.successCallback();
 		        	} else {
@@ -338,7 +338,6 @@ $(function () {
 	});
 
 	$('#btnStep').click(function (e) {
-	    debugger;
 	    if (_sl == false) {
 	        if (!isValid())
 	            return;
