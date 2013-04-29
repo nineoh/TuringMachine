@@ -10,7 +10,6 @@ var Diagram = function () {
         // init
         jsPlumb.setRenderMode(jsPlumb.SVG);
 
-
         programLoop:
             for (var i = 0; i < me.program.length; i++) {
                 var transition = me.program[i];
@@ -25,8 +24,8 @@ var Diagram = function () {
                 }
 
                 while (true) {
-                    var randX = Math.abs(Math.floor(Math.random() * (jqContainer.height() + 1) - me.stateItemSize));
-                    var randY = Math.abs(Math.floor(Math.random() * (jqContainer.width() + 1) - me.stateItemSize));
+                    var randX = Math.abs(Math.floor(Math.random() * (jqContainer.width() + 1) - me.stateItemSize));
+                    var randY = Math.abs(Math.floor(Math.random() * (jqContainer.height() + 1) - me.stateItemSize));
 
                     if (!me.validatePosition(randX, randY, 70, states)) {
                         continue;
@@ -48,7 +47,7 @@ var Diagram = function () {
             var id = 's' + data.id;
 
             var state = '<div id="' + id + '" class="state" style="left: ' + data.x + 'px; top: ' + data.y + 'px;">Q' + data.id + '</div>';
-            $('#container').append(state);
+            jqContainer.append(state);
         }
 
         // Create connections
@@ -77,7 +76,7 @@ var Diagram = function () {
 
         // Some tasks
         jsPlumb.draggable($(".state"), {
-            containment: "container"
+            //containment: "container"
         });
 
         $('#s0').addClass('beginState');
@@ -104,10 +103,16 @@ var Diagram = function () {
     }
 
     this.highlight = function (t) {
+        // State
         $('.highlightedState').removeClass('highlightedState');
         $('#s' + t[0]).addClass('highlightedState');
 
-        $('.highlighted').removeClass('highlighted');
-        $('.rule-' + t[0] + t[1] + t[2] + t[3] + t[4]).addClass('highlighted');
+        // Line
+        if ($('.highlighted').length > 0) {
+            var classes = $('.highlighted').attr('class');
+            $('.highlighted').get(0).setAttribute("class", classes.replace('highlighted', ''));
+        }
+        var classes2 = $('.rule-' + t[0] + t[1] + t[2] + t[3] + t[4]).attr('class');
+        $('.rule-' + t[0] + t[1] + t[2] + t[3] + t[4]).get(0).setAttribute("class", classes2 + ' highlighted')
     }
 }

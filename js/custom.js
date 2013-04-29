@@ -85,7 +85,7 @@ var UniversalTuringMachine = function () {
 		                ruleRan = true;
 		                me.stepCount++;
 
-		                if (me.postStepCallback) me.postStepCallback(me, direction, programm[i][2]/* value to write */);
+		                if (me.postStepCallback) me.postStepCallback(me, direction, programm[i][2]/* value to write */, programm[i]);
 		                break;
 	            	}
 	        	}
@@ -99,7 +99,7 @@ var UniversalTuringMachine = function () {
 		        		if (me.errorCallback) me.errorCallback();
 		        	}
 		        }
-		    }, 0)
+			}, me.stepInterval)
 		})();
 	}
 }
@@ -144,6 +144,8 @@ Tools.init = function () {
 	resetFancyTape();
 }
 
+var _diagram = null;
+
 
 /*
  * Nino's section
@@ -173,15 +175,25 @@ Tools.init = function () {
  		$('ul#fancyTape').append('<li>' + BLANK + '</li>');
  	}
 
-	// Load program
+
+     // Load program
+ 	var itemToLoad = null;
+
 	if (operation == 'addition')
-		$('#programm').text(addition);
+	    itemToLoad = addition;
 	else if (operation == 'multiplication')
-		$('#programm').text(multiplication);
+	    itemToLoad = multiplication;
 	else if (operation == 'faculty') 
-		$('#programm').text(faculty);
+	    itemToLoad = faculty;
 	else
-		alert(operation + ' is not implemented yet!');
+	    alert(operation + ' is not implemented yet!');
+
+	$('#programm').text(itemToLoad);
+
+     // Load diagram globally
+	_diagram = new Diagram();
+	_diagram.program = eval(itemToLoad);
+	_diagram.draw($('#diagram'));
 };
 
 /*
@@ -315,21 +327,12 @@ $(function () {
 		$('#tape').val(tapeString);
 
 		initializeUi();
-
-		// debugger;
-		// var diagram = new Diagram();
-		// diagram.program = eval($('#programm').text());
-
-		// jsPlumb.ready(function () {
-		// 	diagram.draw($('#container'));
-		// });
 	});
 
 	$('#btnStep').click(function (e) {
 		isStepClicked = true;
 		$('#start').click();
 	});
-
 
 	/*
 	 * Jann's section
@@ -341,14 +344,12 @@ $(function () {
 	}).click();
 
 	$('#stepInterval').change(function (e) {
-		$(document).trigger('speedchange', parseInt($(this).val()));
+	    $(document).trigger('speedchange', parseInt($(this).val()));
 	}).change();
 
 	$('#start').click(function () {
 		if (!isValid())
 			return;
-
-		isFirstRun = false;
 
 		var turing = new UniversalTuringMachine();
 		var tools = new Tools(turing);
@@ -375,11 +376,12 @@ $(function () {
 			$('SPAN#status').text('error!');
 		};
 
-		turing.postStepCallback = function (me, direction, toWrite) {
+		turing.postStepCallback = function (me, direction, toWrite, rule) {
 			tools.logTape();
 			$('SPAN#stepCount').text(me.stepCount);
 			$('#tape').val(me.tape.join(''));
 			animateStep(direction, toWrite);
+			_diagram.highlight(rule);
 
 			if (isStepClicked) {
 				alert('next');

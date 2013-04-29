@@ -39,7 +39,7 @@
  }
  div.span10 {
  	position: relative;
- 	width: 1000px;
+ 	width: 1200px;
  }
  div.span11 {
  	position: relative;
@@ -157,7 +157,8 @@
  	position: relative;
  	top: 0;
  	min-height: 300px;
- 	overflow: auto;
+ 	/*overflow: auto;*/
+ 	margin-bottom: 40px;
  }
 
  div#content div#init {
@@ -185,7 +186,7 @@
 
  div#content div#diagram {
  	background-color: #bbb;
- 	height: 600px;
+ 	height: 700px;
  	margin-bottom: 40px;
  	box-shadow: 0 0 20px #bbb;
  }
