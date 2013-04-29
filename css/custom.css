@@ -189,6 +189,7 @@
  	height: 700px;
  	margin-bottom: 40px;
  	box-shadow: 0 0 20px #bbb;
+    overflow: hidden;
  }
 
  div#footer {
@@ -244,13 +245,13 @@
  	margin-top: 10px;
  }
 
-#container {
+/*#container {
     width: 900px;
     height: 900px;
     position: relative;
     background-color: lightgray;
 }
-
+*/
 .state {
     width: 30px;
     height: 30px;
