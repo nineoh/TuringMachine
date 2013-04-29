@@ -25,7 +25,7 @@ var UniversalTuringMachine = function () {
 	me.state = "0";
 	me.tape = [];
 	me.stepCount = 0;
-	me.stepInterval = 100;
+	me.stepInterval = 1000;
 
 	me.successCallback = null;
 	me.errorCallback = null;
@@ -52,6 +52,8 @@ var UniversalTuringMachine = function () {
 		if (!me.tape[me.headPosition])
 			me.tape[me.headPosition] = BLANK;
 	}
+
+
 
 	this.go = function (input, programm) {
 		me.tape = input.split('');
@@ -383,9 +385,9 @@ $(function () {
 			animateStep(direction, toWrite);
 			_diagram.highlight(rule);
 
-			if (isStepClicked) {
-				alert('next');
-			}
+			// if (isStepClicked) {
+			// 	alert('next');
+			// }
 		};
 
         // Run
