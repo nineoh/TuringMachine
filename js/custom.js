@@ -53,12 +53,13 @@ var UniversalTuringMachine = function () {
 			me.tape[me.headPosition] = BLANK;
 	}
 
+	this.preGo = function(input){
+	    me.tape = input.split('');
+	    if (me.startCallback) me.startCallback(me);
 
+	}
 
-	this.go = function (input, programm) {
-		me.tape = input.split('');
-		if (me.startCallback) me.startCallback(me);
-
+	this.go = function (programm, cont) {
 		(function loop() {
 			setTimeout(function () {
 
@@ -92,8 +93,10 @@ var UniversalTuringMachine = function () {
 	            	}
 	        	}
 
-		        if (ruleRan) {
-		        	loop();
+				if (ruleRan) {
+				    if (cont === true) {
+				        loop();
+				    }
 		        } else {
 		        	if (me.compare(me.state, "END")) {
 		        		if (me.successCallback) me.successCallback();
@@ -147,7 +150,10 @@ Tools.init = function () {
 }
 
 var _diagram = null;
+var _sl = false;
 
+var _t = null;
+var _tm = null;
 
 /*
  * Nino's section
@@ -332,8 +338,53 @@ $(function () {
 	});
 
 	$('#btnStep').click(function (e) {
-		isStepClicked = true;
-		$('#start').click();
+	    debugger;
+	    if (_sl == false) {
+	        if (!isValid())
+	            return;
+
+	        _tm = new UniversalTuringMachine();
+	        _t = new Tools(_tm);
+
+	        var tape = $('#tape').val();
+	        var simulator = eval($('#programm').val());
+
+	        $(document).off('speedchange');
+	        $(document).on('speedchange', function (e, speed) {
+	            _tm.stepInterval = speed;
+	            $('#lblSpeed').text(speed);
+	        });
+
+	        _tm.startCallback = function () {
+	            _t.logTape();
+	            $('SPAN#status').text('running');
+	        }
+
+	        _tm.successCallback = function () {
+	            $('SPAN#status').text('success');
+	        };
+
+	        _tm.errorCallback = function () {
+	            $('SPAN#status').text('error!');
+	        };
+
+	        _tm.postStepCallback = function (me, direction, toWrite, rule) {
+	            _t.logTape();
+	            $('SPAN#stepCount').text(me.stepCount);
+	            $('#tape').val(me.tape.join(''));
+	            animateStep(direction, toWrite);
+	            _diagram.highlight(rule);
+	        };
+
+	        // Run
+	        _tm.preGo(tape);
+	        _tm.go(simulator, false);
+	        _sl = true;
+	    } else {
+	        var simulator = eval($('#programm').val());
+	        _tm.go(simulator, false);
+	    }
+
 	});
 
 	/*
@@ -384,14 +435,11 @@ $(function () {
 			$('#tape').val(me.tape.join(''));
 			animateStep(direction, toWrite);
 			_diagram.highlight(rule);
-
-			// if (isStepClicked) {
-			// 	alert('next');
-			// }
 		};
 
-        // Run
-        turing.go(tape, simulator);
+	    // Run
+		turing.preGo(tape);
+        turing.go(simulator, true);
     });
 
     $('#lblOperator').text(getOperator($('input[name="programRadio"]:checked').val()));
