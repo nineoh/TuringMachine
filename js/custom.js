@@ -15,9 +15,6 @@ var faculty = '[["0", "0", "0", "R", "2"],["2", "' + BLANK + '", "' + BLANK + '"
 
 var isStepClicked = false;
 
-/*
- * Jann's section
- */
 var UniversalTuringMachine = function () {
 
 	var me = this;
@@ -156,10 +153,6 @@ var _t = null;
 var _tm = null;
 
 /*
- * Nino's section
- */
-
-/*
  * Initialize the fancy tape with the digits which were entered.
  */
  var initializeUi = function () {
@@ -294,9 +287,6 @@ var _tm = null;
 
 
 $(function () {
-	/*
-	 * Nino's section
-	 */
 
 	// Initialize event handlers
 	$('input[name="programRadio"]').change(setInputFields);
@@ -386,9 +376,6 @@ $(function () {
 
 	});
 
-	/*
-	 * Jann's section
-	 */
 	$('#reset').click(function () {
 		Tools.init();
 		$('#txtFirstVal').val('');
